@@ -27,10 +27,10 @@ export default function Crear(props) {
             TransitionComponent={Transition}
             keepMounted
             onClose={() => props.setOpen(false)}
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
+            aria-labelledby="alert-dialog-aslide-title"
+            aria-describedby="alert-dialog-slide-desacription"
         >
-            <DialogTitle id="alert-dialog-slide-title">Productos</DialogTitle>
+            <DialogTitle id="alert-dialog-slide-titale">Productos</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
                     ¿Está seguro que desea eliminar el registro?
