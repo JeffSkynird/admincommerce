@@ -11,7 +11,7 @@ export const obtenerTodos = (filtros,setData, store) => {
     method: "GET",
     url: url,
     headers: {
-        "X-Authorization": "sk_38714b6c03d587e6a26cba7eb2ec95f419c2dc489daa8",
+        "X-Authorization": "sk_387173323740d627b286ab5242a4411624523346ae9a2",
         "Accept": "application/json",
         "Content-Type": "application/json",
     },
@@ -64,7 +64,7 @@ export const obtenerNúmeroProductos = (filtros,setData,setData2,setData3, setDa
       },
       url: url,
       headers: {
-          "X-Authorization": "sk_38714b6c03d587e6a26cba7eb2ec95f419c2dc489daa8",
+          "X-Authorization": "sk_387173323740d627b286ab5242a4411624523346ae9a2",
           "Accept": "application/json",
           "Content-Type": "application/json",
       },
@@ -92,7 +92,7 @@ export const obtenerNúmeroProductos = (filtros,setData,setData2,setData3, setDa
             data.map((e,i)=>{
                     labels.push(e.name)
                     values.push(e.inventory.available)
-                    if(i<=5){
+                    if(i<5){
                         lastProducts.push({name:e.name,stock:e.inventory.available,price:e.price.raw,image:e.image?.url})
                     }
                     todos.push({name:e.name,stock:e.inventory.available,price:e.price.raw,image:e.image?.url})
@@ -126,7 +126,7 @@ export const obtenerNúmeroProductos = (filtros,setData,setData2,setData3, setDa
       },
       url: url,
       headers: {
-          "X-Authorization": "sk_38714b6c03d587e6a26cba7eb2ec95f419c2dc489daa8",
+          "X-Authorization": "sk_387173323740d627b286ab5242a4411624523346ae9a2",
           "Accept": "application/json",
           "Content-Type": "application/json",
       },
