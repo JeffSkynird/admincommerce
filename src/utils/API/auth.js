@@ -147,7 +147,7 @@ export const iniciarSesion = (email, password, store,history) => {
       }else{
         history.push('dashboard_asesor');
       } */
-      window.location.href='/panel';
+      window.location.href='/redirect';
 
      }else{
       mostrarNotificacion({type:"error",message:response.message})
@@ -164,8 +164,9 @@ export const iniciarSesion = (email, password, store,history) => {
     });
 }
 export const cerrarSesion = (store) => {
-  const { usuario,logout,mostrarNotificacion ,playSound,mostrarLoader} = store
+  const { usuario,logout,mostrarNotificacion ,mostrarLoader} = store
 
+  console.log(usuario)
   let url = ENTRYPOINT+"auth/logout"
   let setting = {
     method: "POST",
@@ -186,7 +187,7 @@ export const cerrarSesion = (store) => {
      
       mostrarNotificacion({type:"success",message:res.data.message})
       mostrarLoader(false)
-      window.location.href="/bienvenida"
+      window.location.href="/login"
 
     })
     .catch((error) => {

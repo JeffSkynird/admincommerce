@@ -469,7 +469,7 @@ export default function Sistemas(props) {
 
                     }
                     options={{
-
+                        paging: false,
                         actionsColumnIndex: -1,
                         search: false,
                         maxBodyHeight: 350,

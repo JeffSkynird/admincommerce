@@ -7,11 +7,27 @@ export default function Propager(props) {
 
     const {usuario,cargarUsuario}=React.useContext(Initializer)
     React.useEffect(()=>{
-        if( localStorage.getItem('is_login')==null&&history.location.pathname!='/login'){      
-            history.push("/login")
+        if(usuario==null){      
+       
+            let auth = localStorage.getItem("auth");
+            if(auth!=null){
+                cargarUsuario(auth)
+
+           
+                  
+               
+            }else{
+                if(history.location.pathname!="/login"){
+                    history.push("/login")
+                }
+              
+               
+            }
+         
+        }else{
+            window.location.href="/panel"
         }
     },[])
-
     return (
         props.children
     )

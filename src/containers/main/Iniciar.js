@@ -54,26 +54,14 @@ export default function Iniciar(props) {
   const [showPassword, setShowPassword] = React.useState(false)
   const [correo, setCorreo] = React.useState("")
   const [clave, setClave] = React.useState("")
+
   React.useEffect(() => {
-    if (localStorage.getItem('is_login') != null) {
-      window.location.href="/panel"
+    if (initializer.usuario != null) {
+      window.location.href = "/panel"
     }
-  }, [])
+  }, [initializer.usuario])
   const entrar = () => {
-    //iniciarSesion(correo, clave, initializer)
-    initializer.mostrarLoader(true)
-    setTimeout(() => {
-      if(correo=="boutique.kz.2022@gmail.com"&&clave=="boutique2022"){
-        initializer.mostrarNotificacion({type:"success",message:"Inicio de sexión exitoso"})
-        initializer.mostrarLoader(false)
-        localStorage.setItem("is_login", true)
-        window.location.href='/panel';
-      }else{
-        initializer.mostrarNotificacion({type:"error",message:"Credenciales incorrectas"})
-        initializer.mostrarLoader(false)
-      }
-      
-    }, 1500)
+    iniciarSesion(correo, clave, initializer)
   }
   const handleMouseDownPassword = (event) => {
     event.preventDefault();

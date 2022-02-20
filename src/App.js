@@ -35,6 +35,10 @@ import Settings from './containers/panel/Settings';
  */
 
 import Panel from './containers/panel/Panel';
+import Categorias from './containers/categorias';
+ import Productos from './containers/productos';
+import Descuentos from './containers/descuentos';
+import Ventas from './containers/ventas'; 
 
 import { indigo } from '@material-ui/core/colors';
 
@@ -183,8 +187,12 @@ export default function App(props) {
                 <Switch>
                   <Route exact path="/login" component={Login} />
                   <Route exact path="/panel" component={Panel} />
-                 
-                  
+                <Route exact path="/ventas" component={Ventas} />
+                  <Route exact path="/productos" component={Productos} />
+                  <Route exact path="/descuentos" component={Descuentos} /> 
+
+                  <Route exact path="/categorias" component={Categorias} />
+
                   <Route render={() => <Redirect to="/panel" />} />
                   
                 </Switch>
