@@ -19,7 +19,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import { LocalizationTable, TableIcons, removeAccent } from '../../utils/table.js'
 import MaterialTable from "material-table";
-import { Grid, IconButton } from '@material-ui/core';
+import { Grid, IconButton, Paper } from '@material-ui/core';
 import { obtenerSistemaEvaluaciones, obtenerTodos } from '../../utils/API/sistemas.js';
 import Crear from './components/Crear'
 import Eliminar from './components/Eliminar'
@@ -52,6 +52,8 @@ import TransferWithinAStationIcon from '@material-ui/icons/TransferWithinAStatio
 import Lineal from './components/Lineal'
 import { obtenerNúmeroCategorías, obtenerNúmeroProductos, obtenerTodos as obtenerOrdenes } from '../../utils/API/commerce';
 import Print from './components/Print'
+import { obtenerProductId as obtenerOrdenesLista } from '../../utils/API/order';
+import { obtenerProducto } from '../../utils/API/productos';
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -155,6 +157,9 @@ export default function Sistemas(props) {
     const [dataInventario, setDataInventario] = React.useState({ values: [], labels: [] });
     const [productos, setProductos] = React.useState([]);
     const [todosProductos, setTodosProductos] = React.useState([]);
+    const [productId, setProductId] = React.useState("")
+    const [dataObject, setDataObject] = React.useState(null)
+    const [sales, setSales] = React.useState(0)
 
     React.useEffect(() => {
 
@@ -170,12 +175,21 @@ export default function Sistemas(props) {
 
         obtenerOrdenes(null, setDataVentas, initializer);
         obtenerNúmeroCategorías(null, setDataCategorias, initializer)
-        obtenerNúmeroProductos(null, setDataProductos, setDataInventario, setProductos,setTodosProductos, initializer)
-
+        obtenerNúmeroProductos(null, setDataProductos, setDataInventario, setProductos, setTodosProductos, initializer)
 
 
     }, [])
-    console.log(dataVentas)
+    React.useEffect(() => {
+        if (initializer.usuario != null) {
+            obtenerOrdenesLista(setProductId,setSales, initializer)
+        }
+    }, [initializer.usuario])
+    React.useEffect(() => {
+        if (productId != "") {
+            obtenerProducto(productId, setDataObject)
+
+        }
+    }, [productId])
     const getFirstLast = () => {
         if (desde == null && hasta == null) {
             return "(No ha seleccionado un rango)"
@@ -226,11 +240,63 @@ export default function Sistemas(props) {
         setDataInventario({ values: [], labels: [] })
         setDataVentas({ ventas: 0, valor: 0 })
         obtenerNúmeroCategorías({ desde: desde, hasta: hasta }, setDataCategorias, initializer)
-        obtenerNúmeroProductos({ desde: desde, hasta: hasta }, setDataProductos, setDataInventario, example, setTodosProductos,initializer)
+        obtenerNúmeroProductos({ desde: desde, hasta: hasta }, setDataProductos, setDataInventario, example, setTodosProductos, initializer)
         obtenerOrdenes({ desde: desde, hasta: hasta }, setDataVentas, initializer);
 
     }
-    const example=()=>{
+    const example = () => {
+
+    }
+    const renderProduct = () => {
+        let data = dataObject
+        console.log(data)
+        if (data != null) {
+            return (
+
+                <Paper style={{ padding: 10 }}>
+                    <Grid container spacing={2} >
+                        <Grid item xs={12} md={12}>
+                            <Typography variant="h6">
+                                Producto más vendido
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={6} md={6} >
+
+                            <img src={data.image.url} style={{ height: 200 }} />
+                        </Grid>
+                        <Grid item xs={6} md={6} style={{display:'flex',justifyContent:'flex-end'}}>
+                            <div>
+                            <Typography variant="h6">
+                                {data.sku}
+                            </Typography>
+                            <Typography variant="h6">
+                                {data.name}
+                            </Typography>
+                            <Typography variant="subtitle1">
+                                {data.description}
+                            </Typography>
+                            <Typography variant="subtitle1">
+                                ${data.price.raw}
+                            </Typography>
+                            <Typography variant="h6" >
+                                Ventas: {sales}
+                            </Typography>
+                            </div>
+                          
+                        </Grid>
+
+
+
+                    </Grid>
+                </Paper>
+
+            )
+        } else {
+            return (
+                <span>Cargando...</span>
+            )
+        }
 
     }
     return (
@@ -260,7 +326,7 @@ export default function Sistemas(props) {
 
                                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                     <Typography variant="h4" style={{ color: 'white', }} >
-                                        ${dataVentas.valor}
+                                        ${dataVentas.valor.toFixed(2)}
                                     </Typography>
                                     <MonetizationOnIcon style={{ marginTop: 5, borderRadius: 5, marginBottom: 15, fontSize: 50 }} fontSize='24' />
 
@@ -437,11 +503,11 @@ export default function Sistemas(props) {
 
 
             </Grid> */}
-            <Grid item md={12} xs={12}>
+            <Grid item md={9} xs={12}>
                 <MaterialTable
                     icons={TableIcons}
                     columns={[
-                        { title: "Imagen", field: "image", render: rowData => <img src={rowData.image} width={50} height={50} alt="" srcset="" style={{borderRadius:50}}/> },
+                        { title: "Imagen", field: "image", render: rowData => <img src={rowData.image} width={50} height={50} alt="" srcset="" style={{ borderRadius: 50 }} /> },
 
                         { title: "Nombre", field: "name" },
 
@@ -463,8 +529,8 @@ export default function Sistemas(props) {
 
                     title={
                         <div>
-                            <Typography style={{display:'inline'}}>Últimos 5 productos</Typography>
-                            <Print productos={todosProductos}/>
+                            <Typography style={{ display: 'inline' }}>Últimos 5 productos</Typography>
+                            <Print productos={todosProductos} />
                         </div>
 
                     }
@@ -489,6 +555,10 @@ export default function Sistemas(props) {
                 />
             </Grid>
 
+            <Grid item md={3} xs={12}>
+                <span>{renderProduct()}</span>
+
+            </Grid>
         </Grid>
     )
 }

@@ -23,7 +23,7 @@ export default function Crear(props) {
 
     const [codigo, setCodigo] = React.useState("")
     const [valor, setValor] = React.useState("")
-    const [cantidad, setCantidad] = React.useState("")
+    const [cantidad, setCantidad] = React.useState("0")
     const [celular, setCelular] = React.useState("")
     const [correo, setCorreo] = React.useState("")
     const [telefono, setTelefono] = React.useState("")
@@ -202,24 +202,6 @@ export default function Crear(props) {
                             variant="outlined"
                         />
                     </Grid>
-                    <Grid item xs={12}>    <TextField
-                        variant="outlined"
-                        style={{ width: '100%' }}
-
-                        label="Cantidad límite"
-                        value={cantidad}
-                        onChange={(e) =>{
-                            const re = /^[0-9\b]+$/;
-
-                            // if value is not blank, then test the regex
-                        
-                            if (e.target.value === '' || re.test(e.target.value)) {
-                                setCantidad(e.target.value)
-                            }
-
-                        } }
-
-                    /></Grid>
                 </Grid>
 
             </DialogContent>

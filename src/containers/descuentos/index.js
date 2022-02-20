@@ -74,7 +74,6 @@ export default function Sistemas(props) {
                         { title: "Código", field: "code" },
                       
                         { title: "Valor", field: "value",type:"currency" },
-                        { title: "Cantidad límite", field: "quantity" },
 
                         
                         { title: "Registro", field: "created_at", type: "datetime" },

@@ -55,12 +55,26 @@ export default function Crear(props) {
             setApellidos(props.sistema.sku)
             setSku(props.sistema.sku)
             setPrecio(props.sistema.price)
-            setCantidad(props.sistema.stock)
+            setCantidad(buscarStock(props.sistema.chec_id))
             setDescripcion(props.sistema.description)
             setImagen(props.sistema.image)
 
         }
     }, [props.sistema])
+    const buscarStock=(id)=>{
+
+        let stock=0
+         props.data2.map((e)=>{
+            
+            if(e.id==id){
+            
+                    stock = e.inventory.available
+                
+            }
+        }
+         )
+         return stock
+    }
     const guardar = () => {
 console.log(categoriasSeleccionadas)
 let data = {

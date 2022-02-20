@@ -205,6 +205,33 @@ export const registrar = (data,store,limpiar) => {
 
     });
 }
+const obtenerElProductoMasVendido = (dataOrden) => {
+  let product_id=null
+  let nuevo = []
+  dataOrden.map((e) => {
+      nuevo.push({
+          productos: e.order.line_items
+      })
+  })
+  let res = []
+  nuevo.map((e) => {
+    
+      e.productos.map((i) => {
+          res.push(i.product_id)
+      }
+      )
+  }
+  )
+  let ocurrence=null
+  if(res.length!=0){
+     ocurrence = res.reduce(function (acc, curr) {
+          return acc[curr] ? ++acc[curr] : acc[curr] = 1, acc
+        }, {});
+      
+        product_id = Object.keys(ocurrence).reduce((a, b) => ocurrence[a] > ocurrence[b] ? a : b)
+  }
+   return {product_id,sales:ocurrence[product_id]}
+}
 export const obtenerTodos = (setData,store) => {
     const { usuario, cargarUsuario, mostrarNotificacion, mostrarLoader } = store;
 
@@ -236,7 +263,39 @@ export const obtenerTodos = (setData,store) => {
 
     });
 }
+export const obtenerProductId = (setProductId,setSales,store) => {
+  const { usuario, cargarUsuario, mostrarNotificacion, mostrarLoader } = store;
 
+
+let url = ENTRYPOINT+"orders"
+let setting = {
+  method: "Get",
+  url: url,
+  headers: { 'Accept': 'application/json',
+  Authorization: "Bearer " + JSON.parse(desencriptarJson(usuario)).token, }
+
+};
+
+
+axios(setting)
+  .then((res) => {
+    let response = res.data
+   if(response.type!="error"){
+     console.log("AQUI")
+      console.log(obtenerElProductoMasVendido(response.data))  
+      console.log("asd")
+      setProductId(obtenerElProductoMasVendido(response.data).product_id)
+      setSales(obtenerElProductoMasVendido(response.data).sales)
+   }else{
+   
+   }
+  })
+  .catch((error) => {
+   console.log(error)
+
+
+  });
+}
 export const obtenerInventarioOrden = (id,setData,store) => {
   const { usuario, cargarUsuario, mostrarNotificacion, mostrarLoader } = store;
 

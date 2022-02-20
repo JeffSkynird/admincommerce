@@ -293,8 +293,6 @@ function ResponsiveDrawer(props) {
         </div>
     );
 
-
-    console.log(history)
     return (
         <div className={classes.root}>
             <CssBaseline />

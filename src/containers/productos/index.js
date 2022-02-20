@@ -24,6 +24,8 @@ export default function Sistemas(props) {
     const initializer = React.useContext(Initializer);
 
     const [data, setData] = React.useState([])
+    const [data2, setData2] = React.useState([])
+
     const [open, setOpen] = React.useState(false)
     const [open2, setOpen2] = React.useState(false)
     const [selected, setSelected] = React.useState(null)
@@ -32,24 +34,31 @@ export default function Sistemas(props) {
 
     React.useEffect(() => {
         if (initializer.usuario != null) {
-            obtenerTodos(setData, initializer)
+            obtenerTodos(setData,setData2,initializer)
         }
     }, [initializer.usuario])
     const carga = () => {
-        obtenerTodos(setData, initializer)
+        obtenerTodos(setData,setData2, initializer)
         setSelected(null)
         setSelected2(null)
     }
-    const total=()=>{
-        let tot=0
-        data.map((e)=>{
-            tot+=e.evaluaciones
-        })
-        return tot
+    const buscarStock=(id)=>{
+        console.log(id)
+        console.log(data2)
+
+        let stock=0
+         data2.map((e)=>{
+            if(e.id==id){
+                    stock = e.inventory.available
+                
+            }
+        }
+         )
+         return stock
     }
     return (
         <Grid container spacing={2}>
-            <Crear sistema={selected} setSelected={setSelected} setOpen={setOpen} open={open} carga={carga} />
+            <Crear data2={data2} sistema={selected} setSelected={setSelected} setOpen={setOpen} open={open} carga={carga} />
             <Eliminar sistema={selected2} setOpen={setOpen2} open={open2} carga={carga} />
 
             <Grid item xs={12} md={12} style={{display:'flex',justifyContent:'space-between'}}>
@@ -76,7 +85,10 @@ export default function Sistemas(props) {
                         { title: "Nombre", field: "name" },
                         { title: "Sku", field: "sku" },
                         { title: "Descripción", field: "description" },
-                        { title: "Stock", field: "stock" },
+                        { title: "Stock", field: "stock",render:rowData=>{
+                            return <span>{buscarStock(rowData.chec_id)}</span>
+                        }
+                         },
                         { title: "Precio", field: "price" ,type:"currency"},
                         { title: "Registro", field: "created_at", type: "datetime" },
 

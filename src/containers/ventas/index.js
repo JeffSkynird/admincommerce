@@ -44,7 +44,7 @@ export default function Sistemas(props) {
     const calcular=(value)=>{
         let iva = value*0.12
         let total = value+iva
-        return {iva,total}
+        return {iva:iva.toFixed(2),total:total.toFixed(2)}
     }
     return (
         <Grid container spacing={2}>

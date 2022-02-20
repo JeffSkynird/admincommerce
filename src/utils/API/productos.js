@@ -205,7 +205,7 @@ export const registrar = (data,store,limpiar) => {
 
     });
 }
-export const obtenerTodos = (setData,store) => {
+export const obtenerTodos = (setData,setData2,store) => {
     const { usuario, cargarUsuario, mostrarNotificacion, mostrarLoader } = store;
 
  
@@ -224,7 +224,7 @@ export const obtenerTodos = (setData,store) => {
       let response = res.data
      if(response.type!="error"){
         setData(response.data)
-   
+      setData2(response.data_chec.data)
 
      }else{
      
@@ -236,7 +236,35 @@ export const obtenerTodos = (setData,store) => {
 
     });
 }
+export const obtenerProducto = (id,setData) => {
 
+
+
+let url = ENTRYPOINT+"products/"+id
+let setting = {
+  method: "Get",
+  url: url,
+  headers: { 'Accept': 'application/json',}
+
+};
+
+
+axios(setting)
+  .then((res) => {
+    let response = res.data
+   if(response.type!="error"){
+      setData(response.data)
+
+   }else{
+   
+   }
+  })
+  .catch((error) => {
+   
+
+
+  });
+}
 export const obtenerInventarioOrden = (id,setData,store) => {
   const { usuario, cargarUsuario, mostrarNotificacion, mostrarLoader } = store;
 
