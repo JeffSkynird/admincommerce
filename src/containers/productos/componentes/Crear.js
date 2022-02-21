@@ -24,7 +24,7 @@ export default function Crear(props) {
     const [nombre, setNombre] = React.useState("")
     const [sku, setSku] = React.useState("")
     const [precio, setPrecio] = React.useState("")
-    const [cantidad, setCantidad] = React.useState(" ")
+    const [cantidad, setCantidad] = React.useState("")
     const [descripcion, setDescripcion] = React.useState("")
     const [imagen, setImagen] = React.useState("")
     const [supplierCode, setSupplirCode] = React.useState("")
@@ -99,7 +99,11 @@ props.setOpen(false)
     }
     const limpiar = () => {
         setNombre("")
-
+        setSku("")
+        setCantidad("")
+        setPrecio("")
+        setImagen("")
+        setCategoriasSeleccionadas([])
         setDescripcion("")
         setApellidos("")
         props.setSelected(null)
