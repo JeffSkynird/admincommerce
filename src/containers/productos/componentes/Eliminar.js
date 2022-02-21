@@ -10,7 +10,7 @@ import Initializer from '../../../store/Initializer'
 
 import Slide from '@material-ui/core/Slide';
 import { Grid } from '@material-ui/core';
-import { eliminar  } from '../../../utils/API/categorias';
+import { eliminar  } from '../../../utils/API/productos';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
