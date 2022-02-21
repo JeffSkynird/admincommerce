@@ -83,7 +83,7 @@ export default function Sistemas(props) {
                             return <Avatar src={rowData.image} />
                         }},
                         { title: "Nombre", field: "name" },
-                        { title: "Sku", field: "sku" },
+                        { title: "Código", field: "sku" },
                         { title: "Descripción", field: "description" },
                         { title: "Stock", field: "stock",render:rowData=>{
                             return <span>{buscarStock(rowData.chec_id)}</span>

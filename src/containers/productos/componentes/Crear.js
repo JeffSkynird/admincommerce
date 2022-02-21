@@ -236,7 +236,7 @@ props.setOpen(false)
                         variant="outlined"
                         style={{ width: '100%' }}
 
-                        label="SKU"
+                        label="Código"
                         value={sku}
                         onChange={(e) => setSku(e.target.value)}
 
