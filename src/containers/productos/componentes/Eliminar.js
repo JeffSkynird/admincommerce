@@ -10,7 +10,7 @@ import Initializer from '../../../store/Initializer'
 
 import Slide from '@material-ui/core/Slide';
 import { Grid } from '@material-ui/core';
-import { eliminar  } from '../../../utils/API/categorias';
+import { eliminar  } from '../../../utils/API/productos';
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -30,7 +30,7 @@ export default function Crear(props) {
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"
         >
-            <DialogTitle id="alert-dialog-slide-title">Categorías</DialogTitle>
+            <DialogTitle id="alert-dialog-slide-title">Productos</DialogTitle>
             <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
                     ¿Está seguro que desea eliminar el registro?
